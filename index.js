@@ -48,7 +48,7 @@ app.use((req, res, next) => {
 })
 
 
-app.post("*", (req, res) => {
+app.post("*", async (req, res) => {
 
     const img = await createImage(req.body);
     
@@ -128,4 +128,5 @@ function writeCoolText(image, font, text, x, y, endX, endY, size, textOptions={}
     return image;
 }
 
+client.login(process.env.BOT).then(() => console.log("LMG MOUNTED N LOADED"));
 app.listen(process.env.PORT || 8080);
