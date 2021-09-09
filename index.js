@@ -2,6 +2,10 @@ const Jimp = require('jimp');
 const express = require('express');
 const crypto = require('crypto');
 const { Client, TextChannel, MessageAttachment } = require('discord.js');
+const nano = require("nanoid");
+
+
+const nanoid = nano.customAlphabet('1234567890abcdef', 10);
 
 const client = new Client({
     intents: ['DIRECT_MESSAGES']
@@ -9,7 +13,7 @@ const client = new Client({
 
 
 
-async function sendImage(image) {
+async function sendImage(path) {
 
     /**
      * @type {TextChannel}
@@ -19,12 +23,10 @@ async function sendImage(image) {
         console.log("Non text channel")
         return null;
     }
-
-    const attach = new MessageAttachment(image, "out.png")
-
+    
     channel.send({
         data: "Test",
-        files: [attach],
+        files: [path],
     })
     
 }
@@ -56,16 +58,12 @@ app.use((req, res, next) => {
 app.post("*", async (req, res) => {
 
     const img = await createImage(req.body);
+
+    const fileName = nanoid() + ".png";
+    img
+        .writeAsync(fileName)
+        .then(() => sendImage(fileName));
     
-    img.getBase64(Jimp.MIME_PNG, (err, value) => {
-
-        if(err) {
-            return console.log(err.message)
-        }
-
-        sendImage(value)
-    })
-    sendImage();
 
     res.send('OK')
 });
