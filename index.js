@@ -1,6 +1,28 @@
 const Jimp = require('jimp');
 const express = require('express');
 const crypto = require('crypto');
+const { Client, TextChannel, MessageAttachment } = require('discord.js');
+
+const client = new Client({
+    intents: ['DIRECT_MESSAGES']
+});
+
+
+
+async function sendImage(image) {
+
+    /**
+     * @type {TextChannel}
+     */
+    const channel = await client.channels.fetch(process.env.CHANNEL_ID);
+    if(!channels.isText()) {
+        console.log("Non text channel")
+        return null;
+    }
+    const attach = new MessageAttachment(image, "out.png")
+    channel.send(attach);
+    
+}
 
 const app = express();
 
@@ -19,7 +41,6 @@ const json = express.json({
 app.use(json);
 app.use((req, res, next) => {
     
-    console.log(req.headers)
     if(req.headers['x-generated-signature'] != req.headers['x-shopify-hmac-sha256']) {
         res.status(403).send("Forbidden.");
     }
@@ -29,12 +50,10 @@ app.use((req, res, next) => {
 
 app.post("*", (req, res) => {
 
-    res.json({
+    const img = await createImage(req.body);
+    
+    sendImage(img.getBase64());
 
-        headers: req.headers,
-    })
-    return
-    //createImage(req.body)
     res.send('OK')
 });
 
@@ -86,7 +105,8 @@ async function createImage(CUSTOMER_DATA) {
                 alignmentY: Jimp.VERTICAL_ALIGN_CENTER,
             },
         );
-        image.write("test.png");
+        
+        return image;
     });
     
 }
