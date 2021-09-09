@@ -6,6 +6,7 @@ app.use(express.json())
 
 app.post("*", (req, res) => {
 
+    console.log(req.headers)
     res.json({
 
         headers: req.headers,
