@@ -19,6 +19,7 @@ const json = express.json({
 app.use(json);
 app.use((req, res, next) => {
     
+    console.log(req.headers)
     if(req.headers['x-generated-signature'] != req.headers['x-shopify-hmac-sha256']) {
         res.status(403).send("Forbidden.");
     }
@@ -27,7 +28,7 @@ app.use((req, res, next) => {
 
 
 app.post("*", (req, res) => {
-    
+
     res.json({
 
         headers: req.headers,
