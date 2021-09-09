@@ -15,7 +15,7 @@ async function sendImage(image) {
      * @type {TextChannel}
      */
     const channel = await client.channels.fetch(process.env.CHANNEL_ID);
-    if(!channels.isText()) {
+    if(!channel.isText()) {
         console.log("Non text channel")
         return null;
     }
