@@ -52,7 +52,7 @@ app.post("*", async (req, res) => {
 
     const img = await createImage(req.body);
     
-    sendImage(img.getBase64());
+    sendImage(img.getBase64(Jimp.MIME_PNG));
 
     res.send('OK')
 });
