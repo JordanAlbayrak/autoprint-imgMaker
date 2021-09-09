@@ -19,8 +19,13 @@ async function sendImage(image) {
         console.log("Non text channel")
         return null;
     }
+
     const attach = new MessageAttachment(image, "out.png")
-    channel.send(attach);
+
+    channel.send({
+        data: "Test",
+        files: [attach],
+    })
     
 }
 
