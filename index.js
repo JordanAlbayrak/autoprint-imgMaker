@@ -86,4 +86,4 @@ function writeCoolText(image, font, text, x, y, endX, endY, size, textOptions={}
     return image;
 }
 
-app.listen(8080);
+app.listen(process.env.PORT || 8080);
