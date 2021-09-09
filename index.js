@@ -1,12 +1,33 @@
 const Jimp = require('jimp');
 const express = require('express');
+const crypto = require('crypto');
 
 const app = express();
-app.use(express.json())
+
+const json = express.json({
+    verify: (req, res, buf, encoding) => {
+        
+    const signature = crypto
+        .createHmac("sha256", process.env.SHOPIFY_KEY)
+        .update(buf)
+        .digest("base64");
+
+        req.headers['x-generated-signature'] = signature;
+    }
+});
+
+app.use(json);
+app.use((req, res, next) => {
+    
+    if(req.headers['x-generated-signature'] != req.headers['x-shopify-hmac-sha256']) {
+        res.status(403).send("Forbidden.");
+    }
+    next();
+})
+
 
 app.post("*", (req, res) => {
-
-    console.log(req.headers)
+    
     res.json({
 
         headers: req.headers,
