@@ -61,7 +61,7 @@ const LINE_BREAK = 16;
 
 async function createImage(CUSTOMER_DATA) {
 
-    new Jimp(256, 256, "white", async (err, image) => {
+    return  new Jimp(256, 256, "white", async (err, image) => {
     
         const [font, fontSmall, logo, bar] = await Promise.all([
             Jimp.loadFont(Jimp.FONT_SANS_16_BLACK),
