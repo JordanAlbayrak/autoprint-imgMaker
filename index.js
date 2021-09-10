@@ -5,6 +5,11 @@ const { Client, TextChannel, MessageAttachment } = require('discord.js');
 const nano = require("nanoid");
 const { unlinkSync } = require("fs");
 
+const 
+    SEEN = [],
+    MAX = process.env.MAX ?? 10;
+let index = 0;
+
 
 const nanoid = nano.customAlphabet('1234567890abcdef', 10);
 
@@ -57,6 +62,21 @@ app.use((req, res, next) => {
 
 
 app.post("*", async (req, res) => {
+
+    const hash = crypto
+        .createHash('md5').update(getCustomer(req.body))
+        .digest("hex");
+
+    if(SEEN.includes(hash)) {
+        console.log("Already seen. Ignoring");
+        return res.sendStatus(202);
+    }
+
+    SEEN[index++] = hash;
+
+    if(SEEN.length === MAX) {
+        index = 0; // You could modulo but this is overflow immune
+    }
 
     const img = await createImage(req.body);
 
