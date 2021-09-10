@@ -23,7 +23,7 @@ async function sendImage(path) {
         console.log("Non text channel")
         return null;
     }
-    
+
     channel.send({
         data: "Test",
         files: [path],
@@ -120,7 +120,10 @@ async function createImage(CUSTOMER_DATA) {
     
 }
 function getCustomer({ shipping_address: { first_name: firstName, last_name: lastName, address1: address, city, zip, province, country } }) {
-    return `${firstName} ${lastName}\n${address}\n${city} ${zip}\n${province}\n${country}`;
+
+    const softAdd = n => n ? `\n${n}`:'';
+
+    return `${firstName} ${lastName}\n${address}\n${city} ${zip}${softAdd(province)}\n${country}`;
 }
 
 function writeCoolText(image, font, text, x, y, endX, endY, size, textOptions={}) {
