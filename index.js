@@ -25,7 +25,7 @@ async function sendImage(path) {
         return null;
     }
 
-    channel.send({
+    await channel.send({
         data: "Test",
         files: [path],
     })
