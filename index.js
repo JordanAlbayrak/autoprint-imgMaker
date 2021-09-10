@@ -3,6 +3,7 @@ const express = require('express');
 const crypto = require('crypto');
 const { Client, TextChannel, MessageAttachment } = require('discord.js');
 const nano = require("nanoid");
+const { unlinkSync } = require("fs");
 
 
 const nanoid = nano.customAlphabet('1234567890abcdef', 10);
@@ -62,7 +63,9 @@ app.post("*", async (req, res) => {
     const fileName = nanoid() + ".png";
     img
         .writeAsync(fileName)
-        .then(() => sendImage(fileName));
+        .then(() => sendImage(fileName))
+        .then(() => unlinkSync(fileName))
+        .then(() => console.log(`Sent and deleted file ${fileName}`))
     
 
     res.send('OK')
