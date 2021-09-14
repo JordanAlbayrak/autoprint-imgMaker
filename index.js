@@ -64,7 +64,8 @@ app.use((req, res, next) => {
 app.post("*", async (req, res) => {
 
     const hash = crypto
-        .createHash('md5').update(getCustomer(req.body))
+        .createHash('md5')
+        .update(getCustomer(req.body))
         .digest("hex");
 
     if(SEEN.includes(hash)) {
