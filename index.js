@@ -100,7 +100,7 @@ async function createImage(CUSTOMER_DATA) {
     const [font, fontSmall, logo, bar] = await Promise.all([
         Jimp.loadFont(Jimp.FONT_SANS_16_BLACK),
         Jimp.loadFont(Jimp.FONT_SANS_12_BLACK),
-        Jimp.read("logo.jpeg"),
+        Jimp.read("logo.png"),
         new Jimp(236, 5, "black"),
     ]);
 
