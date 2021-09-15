@@ -107,13 +107,13 @@ async function createImage(CUSTOMER_DATA) {
     image.composite(logo.resize(64, 64), 256-64, 0);
 
     // Composite black line on label
-    image.composite(bar, 10, 90);
+    image.composite(bar, 10, 100);
 
     // Write FROM on label
     writeCoolText(
         image,
         fontSmall,
-        "FROM: 2705 CROIS Marquise\nBrossard, J4Y 1P1\nQuebec, Canada",
+        "FROM: SugarClaws Acrylics\n2705 CROIS Marquise\nBrossard, J4Y 1P1\nQC, Canada",
         10,
         32,
         256,
