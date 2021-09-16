@@ -104,7 +104,7 @@ async function createImage(CUSTOMER_DATA) {
         new Jimp(236, 5, "black"),
     ]);
 
-    image.composite(logo.resize(64, 64), 256-64, 28);
+    image.composite(logo.resize(64, 64), 256-64, 24);
 
     // Composite black line on label
     image.composite(bar, 10, 90);
