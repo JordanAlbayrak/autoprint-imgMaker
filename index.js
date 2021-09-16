@@ -104,7 +104,7 @@ async function createImage(CUSTOMER_DATA) {
         new Jimp(236, 5, "black"),
     ]);
 
-    image.composite(logo.resize(64, 64), 256-64, 0);
+    image.composite(logo.resize(64, 64), 256-32, 0);
 
     // Composite black line on label
     image.composite(bar, 10, 90);
@@ -113,7 +113,7 @@ async function createImage(CUSTOMER_DATA) {
     writeCoolText(
         image,
         fontSmall,
-        "FROM: SugarClaws Acrylics\n2705 CROIS Marquise\nBrossard, J4Y 1P1\nQC, Canada",
+        "FROM: SUGARCLAWS ACRYLICS\n2705 CROIS Marquise\nBrossard, J4Y 1P1\nQC, Canada",
         10,
         32,
         256,
