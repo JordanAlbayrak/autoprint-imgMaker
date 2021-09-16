@@ -107,7 +107,7 @@ async function createImage(CUSTOMER_DATA) {
     image.composite(logo.resize(64, 64), 256-64, 0);
 
     // Composite black line on label
-    image.composite(bar, 10, 100);
+    image.composite(bar, 10, 90);
 
     // Write FROM on label
     writeCoolText(
