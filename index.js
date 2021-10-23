@@ -143,11 +143,11 @@ async function createImage(CUSTOMER_DATA) {
     return image;
     
 }
-function getCustomer({ shipping_address: { first_name: firstName, last_name: lastName, address1: address, city, zip, province, country } }) {
+function getCustomer({ shipping_address: { first_name: firstName, last_name: lastName, address1: address,address2, city, zip, province, country } }) {
 
     const softAdd = n => n ? `\n${n}`:'';
 
-    return `${firstName} ${lastName}\n${address}\n${city} ${zip}${softAdd(province)}\n${country}`;
+    return `${firstName} ${lastName}\n${address}${address2?"\n"+address2:""}\n${city} ${zip}${softAdd(province)}\n${country}`;
 }
 
 function writeCoolText(image, font, text, x, y, endX, endY, size, textOptions={}) {
